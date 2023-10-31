@@ -15,6 +15,7 @@ void removeDuplicatesNaive(int arr[], int n)
 	for(int i=0;i<n;i++)
 	arr[i]=temp[i];
 }
+
 void removeDuplicates(int arr[], int n)
 {
 	int res=1;
