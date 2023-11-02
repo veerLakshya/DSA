@@ -1,0 +1,61 @@
+#include<iostream>
+using namespace std;
+
+void lrotateBy1(int arr[], int n)
+{
+	int first=arr[0];
+	for(int i=0;i<n-1;i++)
+	arr[i]=arr[i+1];
+
+	arr[n-1]=first;
+}
+void lrotateDplacesM1(int arr[], int n, int d)	// Running lrotate1 for d number of times
+{
+	for(int i=0;i<d;i++)
+	lrotateBy1(arr, n);
+}
+void lrotateDplacesM2(int arr[], int n, int d)	// Copying starting d elements to temp array then moving rest elements to
+{
+	int temp[d];
+	for(int i=0;i<d;i++)
+	{
+		temp[i]=arr[i];
+	}
+	for(int i=d;i<n;i++)
+	arr[i-d]=arr[i];
+	for(int i=d;i<n;i++)	// for(int i=0;i<d;i++)
+	arr[i]=temp[i-d]; 		// arr(n-d+i)=temp[i]
+}
+
+void reverse(int arr[], int low, int high)
+{
+	int l = low;
+	int h = high;
+	while(l<h)
+	{
+		swap(arr[l], arr[h-1]);
+		h--; l++;
+	}
+}
+
+void lrotateDplacesM3(int arr[], int n, int d)  // Using Reversal Algorithm
+{
+	reverse(arr, 0,d+1);
+	reverse(arr, d+1, n);
+	reverse(arr, 0, n);
+}
+
+int main()
+{
+	int n;
+	cin>>n;
+	int arr[n];
+
+	for(int i=0;i<n;i++)
+	cin>>arr[i];
+
+	lrotateDplacesM3(arr, n, 2);
+
+	for(int i=0;i<n;i++)
+	cout<<arr[i]<<" ";
+}
