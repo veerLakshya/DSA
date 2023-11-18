@@ -1,45 +1,78 @@
 #include <iostream>
+#include <bits/stdc++.h>
 #include <vector>
 using namespace std;
 
-int intersectionArray(int arr[], int brr[], int n, int m)
+vector <int> intersectionArray(vector <int> a, vector <int> b)  //using a visited array
 {
-	int i=0,j=0;
-	vector <int> temp;
+	vector <int> ans;
+	int n1 = a.size();
+	int n2 = b.size();
 
-	while(i<n && j<m)
+	int vis[n2] = {0};
+
+	for(int i=0;i<n1;i++)
 	{
-		if(arr[i]<brr[j]) i++;
-		else if(brr[j]<arr[i]) j++;
-		else
+		for(int j=0;j<n2;j++)
 		{
-			temp.push_back(arr[i]);
-			i++; j++;
+			if(a[i]==b[j] && vis[j]==0)
+			{
+				ans.push_back(a[i]);
+				vis[j]=1;
+				break;
+			}
+			if(b[j]>a[i]) break;
 		}
 	}
-	for(int i=0;i<temp.size();i++)
-	arr[i] = temp[i];
+	return ans;
+}
 
-	return temp.size();
+vector <int> intersectionArray2(vector <int> a, vector <int> b) //using 2 pointers
+{
+	vector <int> ans;
+	int n1 = a.size();
+	int n2 = b.size();
+
+	int i=0,j=0;
+	while(i<n1 && j<n2)
+	{
+		if(a[i]<b[j])i++;
+		else if(a[i]>b[j])j++;
+		else
+		{
+			if(ans.size()==0)
+			ans.push_back(a[i]);
+
+			if(ans.back()!=a[i])
+			ans.push_back(a[i]);
+
+			i++;j++;
+		}
+	}
+	return ans;
 }
 
 int main()
 {
+	int x;
 	int n;
 	cin>>n;
-	int a[n];
+	vector <int> a;
 	for(int i=0;i<n;i++)
-	cin>>a[i];
+	{
+		cin>>x;
+		a.push_back(x);
+	}
 
 	int m;
 	cin>>m;
-	int b[m];
+	vector <int> b;
 	for(int i=0;i<m;i++)
-	cin>>b[i];
-
-	int numberOfElements = intersectionArray( a, b, n , m);
-
-	for(int i=0;i<numberOfElements;i++)
-	cout<<a[i]<<" ";
-
+	{
+		cin>>x;
+		b.push_back(x);
+	}
+	vector <int> t = intersectionArray2( a, b);
+	for(int i=0;i< t.size();i++)
+	cout<<t[i]<<" ";
 }
