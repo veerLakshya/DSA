@@ -1,0 +1,27 @@
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+
+int Digits1(int x)         //Using log
+{
+    return floor(log10(x))+1;
+}
+int Digits2(int x)        //Using maths
+{
+    int temp =x;
+    int count=0;
+    while(temp>0)
+    {
+        count++;
+        temp = temp/10;
+    }
+    return count;
+}
+
+int main() {
+    int n;
+    cin>>n;
+
+    cout<<Digits1(n)<<endl<<Digits2(n);
+    return 0;
+}
