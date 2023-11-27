@@ -1,0 +1,28 @@
+#include<iostream>
+using namespace std;
+int gcd(int a, int b)         //Recursive form of Euclidean Algo
+{
+  return b==0 ? a : gcd(b,a%b);
+}
+int LCM1(int a, int b)        // using a*b = gcd(a,b) * lcm(a,b)
+{
+  int lcm = a*b / gcd(a,b);
+  return lcm;
+}
+int LCM2(int a,int b)         //Brute Force
+{
+  int res = max(a,b);
+  while(true)
+  {
+    if(res%a == 0 && res%b ==0)
+    return res;
+    res++;
+  }
+}
+int main()
+{
+  int a,b,x;
+  cin>>a>>b;
+  x=a*b;
+  cout<<LCM2(a,b)<<endl<<LCM1(a,b);
+}
